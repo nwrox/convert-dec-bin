@@ -1,2 +1,2 @@
 # convert-dec-bin
-Algoritmo para converter um número decimal em binário.
+Algoritmo para converter um número binário em decimal e vice-versa.
