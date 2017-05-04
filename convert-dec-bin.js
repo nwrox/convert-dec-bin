@@ -1,33 +1,29 @@
 const binToDec = (b) => {
 	const arr = b.toString().split('')
+	let exp = arr.length - 1;
 
-	let exp = arr.length - 1
-	  , sum = 0
-	 
-	for(let c of arr){	  
-	  if(c === '1' || c === 1) sum += Math.pow(2, exp)
-	  exp--
-	}
-		  
-  return sum
+	return arr.map((elem, index) => {
+		let dec = 0;
+
+		(elem === '1') ? dec = Math.pow(2, exp--) : (exp--, dec = 0)
+
+		return dec
+	}).reduce((acc, elem) => acc + elem, 0)
 }
 
 const decToBin = (n) => {
-	const log2 = Math.round(Math.log2(n));
-	let bin = ''
-		, pow
-	
-	for(let i = log2; i >= 0; i--){
-		pow = Math.pow(2, i)
+	return reverseSeq(getLog2(n)).map(elem => {
+		const pow = Math.pow(2, elem)
+		let bin = '';
 		
-		if(pow <= n){
-			n -= pow
-			bin += '1'
-		} else 
-			bin += '0'
-	}
-	
-	return bin
+		(pow <= n) ? (n -= pow, bin = '1') : bin = '0'
+
+		return bin
+	}).join('')
 }
+
+const getLog2 = (n) => Math.round(Math.log2(n))
+
+const reverseSeq = (n) => Array.from(Array(n + 1).keys()).reverse()
 
 module.exports = { binToDec, decToBin }
